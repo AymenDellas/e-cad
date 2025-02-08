@@ -1,22 +1,12 @@
-import { Poppins } from "next/font/google";
-import type { Config } from "tailwindcss";
-
-export default {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-      },
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        poppins: ["var(--font-poppins)", "sans-serif"],
       },
     },
   },
   plugins: [],
-} satisfies Config;
+};
