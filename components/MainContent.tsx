@@ -5,7 +5,7 @@ import RecentOrdersTable from "./RecentOrdersTable";
 import TopSellingProducts from "./TopSellingProducts";
 const MainContent = () => {
   return (
-    <section className="mx-8  mt-12">
+    <section className="mx-8 mt-12 font-poppins">
       <h1 className="text-3xl font-bold my-4">Dashboard</h1>
       <div className="flex flex-col lg:flex-row items-center">
         <Card amount={1600} title="Total Sales" />
