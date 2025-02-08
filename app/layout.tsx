@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+
 import { Poppins } from "next/font/google";
 import "./globals.css";
 
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-poppins`}>
+      <body className={`${poppins.variable} `}>
         <div className="flex">
           <Sidebar />
           <main className="flex-1">{children}</main>
