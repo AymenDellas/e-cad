@@ -2,7 +2,7 @@ import React from "react";
 
 const TopSellingProducts = () => {
   return (
-    <section className="w-full border border-black/10 p-4  shadow-xl rounded-lg ">
+    <section className="w-full border border-black/20 p-4  shadow-xl rounded-lg ">
       <h1 className="font-bold text-2xl m-4">Top Selling Products</h1>
       <div className="space-y-4">
         <div className="flex items-center justify-between">

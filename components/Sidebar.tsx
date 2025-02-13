@@ -2,6 +2,10 @@
 
 import React from "react";
 import { useState } from "react";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
+
 import {
   LayoutDashboard,
   Settings,
@@ -12,10 +16,12 @@ import {
   ChartNoAxesColumn,
   Menu,
   X,
+  LogOut,
 } from "lucide-react";
 
 const Sidebar = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
+  const { data: session } = useSession();
   return (
     <>
       <div
@@ -35,16 +41,16 @@ const Sidebar = () => {
       <aside
         className={`
           fixed lg:sticky top-0 left-0 z-40
-          h-screen w-64 
-          bg-neutral-800 text-white
-          transition-transform duration-300 ease-in-out
+          h-[100dvh] w-64 
+          bg-[#181d16] text-white
+          transition-transform duration-300 ease-in-out flex flex-col rounded-r-xl
+          
           ${
             isSideBarOpen
               ? "translate-x-0"
               : "-translate-x-full lg:translate-x-0"
           }
-          flex flex-col
-          p-6
+          
         `}
       >
         <div
@@ -62,37 +68,75 @@ const Sidebar = () => {
         </div>
         <div className="min-h-full flex flex-col justify-between max-lg:text-xl">
           <ul className="space-y-4 ">
-            <h1 className="p-4 text-2xl font-bold mb-8">Hello , Aymen</h1>
-            <li className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out p-2 rounded-lg cursor-pointer">
-              <LayoutDashboard />
+            <h1 className="p-4 text-xl font-bold my-4 text-center">
+              Admin Panel
+            </h1>
+            <Link
+              href="/dashboard"
+              className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer "
+            >
+              <LayoutDashboard size={20} />
               <p>Dashboard</p>
-            </li>
-            <li className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out p-2 rounded-lg cursor-pointer">
-              <Package />
+            </Link>
+            <Link
+              href="/dashboard/products"
+              className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer "
+            >
+              <Package size={20} />
               <p>Products</p>
-            </li>
-            <li className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out p-2 rounded-lg cursor-pointer">
-              <ShoppingCart />
+            </Link>
+            <Link
+              href="/dashboard/orders"
+              className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer "
+            >
+              <ShoppingCart size={20} />
               <p>Orders</p>
-            </li>
-            <li className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out p-2 rounded-lg cursor-pointer">
-              <Users />
+            </Link>
+            <Link
+              href="/dashboard/users"
+              className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer "
+            >
+              <Users size={20} />
               <p>Users</p>
-            </li>
-            <li className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out p-2 rounded-lg cursor-pointer">
-              <ChartNoAxesColumn />
+            </Link>
+            <Link
+              href="/dashboard/analytics"
+              className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer "
+            >
+              <ChartNoAxesColumn size={20} />
               <p>Analytics</p>
-            </li>
+            </Link>
           </ul>
-          <ul className="">
-            <li className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out p-2 rounded-lg cursor-pointer">
-              <LifeBuoy />
+          <ul className="my-8">
+            <Link
+              href=""
+              className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer "
+            >
+              <LifeBuoy size={20} />
               <p>Contact</p>
-            </li>
-            <li className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out p-2 rounded-lg cursor-pointer">
-              <Settings />
+            </Link>
+            <Link
+              href="/dashboard/settings"
+              className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer "
+            >
+              <Settings size={20} />
               <p>Settings</p>
-            </li>
+            </Link>
+            {session && (
+              <>
+                <Link
+                  onClick={() => signOut()} // sign out
+                  href=""
+                  className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer "
+                >
+                  <LogOut size={20} />
+                  <p>Sign Out</p>
+                </Link>
+                <div className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer ">
+                  {session?.user?.email}
+                </div>
+              </>
+            )}
           </ul>
         </div>
       </aside>
