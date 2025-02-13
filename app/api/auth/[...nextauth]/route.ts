@@ -1,7 +1,7 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -36,9 +36,7 @@ export const authOptions = NextAuth({
       },
     }),
   ],
-  pages: {
-    signIn: "/auth/login",
-  },
+  pages: { signIn: "/auth/login" },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -58,11 +56,8 @@ export const authOptions = NextAuth({
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
-    maxAge: 7 * 24 * 60 * 60,
-  },
-});
+  session: { strategy: "jwt", maxAge: 7 * 24 * 60 * 60 },
+};
 
 const handler = NextAuth(authOptions);
 
