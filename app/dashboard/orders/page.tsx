@@ -9,16 +9,20 @@ import { MoonLoader } from "react-spinners";
 const page = () => {
   const { data: session, status } = useSession<boolean>();
 
+  if (status === "loading") {
+    return null;
+  }
+
   if (!session) {
     redirect("/");
-  } else {
-    return (
-      <section className="mx-28 mt-16">
-        <h1 className="text-2xl font-bold my-4">Orders</h1>
-        <OrdersTable />
-      </section>
-    );
+    return null;
   }
+  return (
+    <section className="mx-28 mt-16">
+      <h1 className="text-2xl font-bold my-4">Orders</h1>
+      <OrdersTable />
+    </section>
+  );
 };
 
 export default page;

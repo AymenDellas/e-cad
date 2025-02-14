@@ -1,3 +1,4 @@
+// app/layout.tsx
 "use client";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
@@ -9,7 +10,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-export default function LoginLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;

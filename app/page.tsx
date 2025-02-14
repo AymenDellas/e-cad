@@ -1,17 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Info } from "lucide-react";
 import { HashLoader } from "react-spinners";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import "./globals.css";
 const LoginPage = () => {
+  const { data: session, status } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  if (status === "loading") {
+    return null;
+  }
+
+  if (session) {
+    router.replace("/dashboard");
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -7,11 +7,15 @@ import { MoonLoader } from "react-spinners";
 const page = () => {
   const { data: session, status } = useSession<boolean>();
 
+  if (status === "loading") {
+    return null;
+  }
+
   if (!session) {
     redirect("/");
-  } else {
-    return <div>page</div>;
+    return null;
   }
+  return <div>page</div>;
 };
 
 export default page;
