@@ -2,12 +2,12 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
-import { Divide, X } from "lucide-react";
+import { X } from "lucide-react";
 import ProductsTable from "@/components/ProductsTable";
-import { useSession } from "next-auth/react";
+
 import { redirect } from "next/navigation";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, doc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { MoonLoader } from "react-spinners";
 import { Product } from "@/components/ProductsTable";
 const page = () => {
@@ -20,7 +20,6 @@ const page = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [query, setQuery] = useState("");
-  const { data: session, status } = useSession<boolean>();
 
   const productsRef = collection(db, "products");
   useEffect(() => {
@@ -58,14 +57,6 @@ const page = () => {
     product.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())
   );
 
-  if (status === "loading") {
-    return null;
-  }
-
-  if (!session) {
-    redirect("/");
-    return null;
-  }
   return (
     <section className="mx-4 lg:mx-28 mt-16 flex flex-col">
       <div className="flex items-center justify-between">

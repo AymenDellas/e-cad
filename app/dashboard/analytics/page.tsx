@@ -3,20 +3,10 @@
 import React from "react";
 import BarC from "@/components/BarC";
 import PieC from "@/components/PieC";
-import { useSession } from "next-auth/react";
+
 import { redirect } from "next/navigation";
 import { MoonLoader } from "react-spinners";
 const page = () => {
-  const { data: session, status } = useSession<boolean>();
-
-  if (status === "loading") {
-    return null;
-  }
-
-  if (!session) {
-    redirect("/");
-    return null;
-  }
   return (
     <section className="mx-4 lg:mx-28 mt-16 flex flex-col">
       <div className="flex items-center justify-between">

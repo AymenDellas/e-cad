@@ -3,8 +3,6 @@
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
 
 import {
   LayoutDashboard,
@@ -21,7 +19,7 @@ import {
 
 const Sidebar = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
-  const { data: session } = useSession();
+
   return (
     <>
       <div
@@ -122,21 +120,6 @@ const Sidebar = () => {
               <Settings size={20} />
               <p>Settings</p>
             </Link>
-            {session && (
-              <>
-                <Link
-                  onClick={() => signOut()} // sign out
-                  href=""
-                  className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer "
-                >
-                  <LogOut size={20} />
-                  <p>Sign Out</p>
-                </Link>
-                <div className="flex items-center space-x-2 hover:bg-white/20 transition-all duration-200 ease-out py-2 px-4 rounded-lg cursor-pointer ">
-                  {session?.user?.email}
-                </div>
-              </>
-            )}
           </ul>
         </div>
       </aside>

@@ -1,9 +1,12 @@
-"use client";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
 import Sidebar from "@/components/Sidebar";
-import { SessionProvider } from "next-auth/react";
+
+export const metadata: Metadata = {
+  title: "...",
+  description: "...",
+};
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -16,14 +19,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <SessionProvider>
-        <body className={`${poppins.variable} antialiased`}>
-          <div className="flex">
-            <Sidebar />
-            <main className="flex-1 overflow-x-hidden">{children}</main>
-          </div>
-        </body>
-      </SessionProvider>
+      <body className={`${poppins.variable} antialiased`}>
+        <div className="flex">
+          <Sidebar />
+          <main className="flex-1 overflow-x-hidden">{children}</main>
+        </div>
+      </body>
     </html>
   );
 }
