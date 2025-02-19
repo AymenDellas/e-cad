@@ -35,7 +35,7 @@ const MainContent = () => {
   const totalOrders = orders.length;
   useEffect(() => {
     const last7Days: { [key: string]: number } = {};
-    for (let i = 6; i <= 0; i--) {
+    for (let i = 6; i >= 0; i--) {
       const date = format(subDays(new Date(), i), "MM/dd");
       last7Days[date] = 0;
     }
