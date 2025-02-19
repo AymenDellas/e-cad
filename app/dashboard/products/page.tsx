@@ -5,11 +5,10 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import ProductsTable from "@/components/ProductsTable";
 
-import { redirect } from "next/navigation";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { MoonLoader } from "react-spinners";
-import { Product } from "@/components/ProductsTable";
+import { Product } from "@/lib/types";
 const page = () => {
   const [displayForm, setDisplayForm] = useState<boolean>(false);
   const [newName, setNewName] = useState<string>("");

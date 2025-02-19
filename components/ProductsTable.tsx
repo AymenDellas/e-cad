@@ -1,24 +1,9 @@
 import React from "react";
 import { db } from "@/lib/firebase";
-import {
-  collection,
-  getDocs,
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  isBestSeller: boolean;
-  type: string;
-  imageUrl: string;
-  stock: number;
-}
-
+import { Product } from "@/lib/types";
 const ProductsTable = ({ filteredProducts }: { filteredProducts: any }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [displayForm, setDisplayForm] = useState(false);

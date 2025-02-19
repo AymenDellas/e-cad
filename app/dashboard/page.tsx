@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
-import MainContent from "@/components/MainContent";
+import dynamic from "next/dynamic";
+const MainContent = dynamic(() => import("@/components/MainContent"), {
+  ssr: false,
+});
 
 const page = () => {
   return (
