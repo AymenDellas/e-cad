@@ -72,7 +72,13 @@ const OrdersTable = () => {
           <tbody>
             {orders.map((order) => (
               <tr key={order.cart[0].id} className="text-center">
-                <td className="border text-left p-3">{order.cart[0].name}</td>
+                <td className="border text-left p-3">
+                  {order.cart
+                    .map((product) => {
+                      return `${product.name}, (x${product.count})`;
+                    })
+                    .join(", ")}
+                </td>
                 <td className="border text-left p-3">
                   {order.firstName} {order.lastName}
                 </td>

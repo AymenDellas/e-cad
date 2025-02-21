@@ -45,17 +45,16 @@ const ProductsTable = ({ filteredProducts }: { filteredProducts: any }) => {
     }
   };
   return (
-    <section className="w-full border border-black/20 p-4 shadow-xl rounded-lg">
-      <h1 className="font-bold text-2xl m-4">Recent Orders</h1>
+    <section className="w-full border border-black/20 p-4 shadow-xl rounded-lg text-primary">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr>
-              <th className="border p-3 text-left">Image</th>
-              <th className="border p-3 text-left">Name</th>
-              <th className="border p-3 text-left">Price</th>
-              <th className="border p-3 text-left">Stock</th>
-              <th className="border p-3 text-left">Actions</th>
+            <tr className="bg-black/5 ">
+              <th className="border p-5 text-left">Image</th>
+              <th className="border p-5 text-left">Name</th>
+              <th className="border p-5 text-left">Price</th>
+              <th className="border p-5 text-left">Stock</th>
+              <th className="border p-5 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -72,44 +71,46 @@ const ProductsTable = ({ filteredProducts }: { filteredProducts: any }) => {
                   <td className="border p-3 text-left">{product.name}</td>
                   <td className="border p-3 text-left">{product.price}</td>
                   <td className="border p-3 text-left">{product.stock}</td>
-                  <td className="border p-3 text-left space-x-2">
-                    <button
-                      onClick={() => {
-                        setDisplayForm(true);
-                        setCurrentProductId(product.id);
-                        setUpdateName(product.name);
-                        setUpdatePrice(product.price);
-                        setUpdateType(product.type);
-                        setUpdateImageUrl(product.imageUrl);
-                        setUpdateStock(product.stock);
-                      }}
-                      className="bg-blue-500 text-white px-2 py-1 rounded-md"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => {
-                        setCurrentProductId(product.id);
-                        setDeleteConfirmation(true);
-                      }}
-                      className="bg-red-500 text-white px-2 py-1 rounded-md"
-                    >
-                      Delete
-                    </button>
+                  <td className="border p-3 text-left space-x-2 ">
+                    <div className="flex lg:space-x-2 max-lg:space-y-2 max-lg:flex-col justify-center">
+                      <button
+                        onClick={() => {
+                          setDisplayForm(true);
+                          setCurrentProductId(product.id);
+                          setUpdateName(product.name);
+                          setUpdatePrice(product.price);
+                          setUpdateType(product.type);
+                          setUpdateImageUrl(product.imageUrl);
+                          setUpdateStock(product.stock);
+                        }}
+                        className="py-2 px-3 bg-black text-white rounded-md outline-none text-sm"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => {
+                          setCurrentProductId(product.id);
+                          setDeleteConfirmation(true);
+                        }}
+                        className="py-2 px-3 bg-black text-white rounded-md outline-none text-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
                     {deleteConfirmation && (
-                      <div className="fixed top-0 left-0 w-full h-full bg-black/5 flex items-center justify-center ">
-                        <div className="bg-white p-4 rounded-md space-y-4">
+                      <div className="fixed top-0 left-0 w-full h-full  flex items-center justify-center ">
+                        <div className="bg-red-100 p-4 rounded-lg border  space-y-4">
                           <p>Are you sure you want to delete this product?</p>
                           <div className="flex  space-x-4">
                             <button
                               onClick={deleteProduct}
-                              className="bg-red-500 text-white px-2 py-1 rounded-md"
+                              className="border border-black bg-[#3b4735]/10 text-[#3b4735] px-2 py-1 rounded-sm"
                             >
                               Yes
                             </button>
                             <button
                               onClick={() => setDeleteConfirmation(false)}
-                              className="bg-blue-500 text-white px-2 py-1 rounded-md"
+                              className="border bg-[#3b4735] text-white px-2 py-1 rounded-sm"
                             >
                               No
                             </button>

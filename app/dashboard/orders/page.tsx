@@ -9,7 +9,7 @@ const OrdersTable = dynamic(() => import("@/components/OrdersTable"), {
 
 const page = () => {
   return (
-    <section className="mx-28 mt-16">
+    <section className="mx-28 mt-16 text-primary">
       <h1 className="text-2xl font-bold my-4">Orders</h1>
       <OrdersTable />
     </section>

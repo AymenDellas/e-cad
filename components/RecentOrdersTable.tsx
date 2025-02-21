@@ -1,6 +1,9 @@
+"use client";
 import React from "react";
 
-const RecentOrdersTable = () => {
+import { Order } from "@/lib/types";
+
+const RecentOrdersTable = ({ orders }: { orders: Order[] }) => {
   return (
     <section className="w-full border border-black/20 p-4 shadow-xl rounded-lg">
       <h1 className="font-bold text-2xl m-4">Recent Orders</h1>
@@ -16,42 +19,27 @@ const RecentOrdersTable = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="border p-3 text-left">1</td>
-              <td className="border p-3 text-left">John Doe</td>
-              <td className="border p-3 text-left">Delivered</td>
-              <td className="border p-3 text-left">$120.50</td>
-              <td className="border p-3 text-left">
-                {new Date().getUTCFullYear()}
-              </td>
-            </tr>
-            <tr>
-              <td className="border p-3 text-left">1</td>
-              <td className="border p-3 text-left">John Doe</td>
-              <td className="border p-3 text-left">Delivered</td>
-              <td className="border p-3 text-left">$120.50</td>
-              <td className="border p-3 text-left">
-                {new Date().getUTCFullYear()}
-              </td>
-            </tr>
-            <tr>
-              <td className="border p-3 text-left">1</td>
-              <td className="border p-3 text-left">John Doe</td>
-              <td className="border p-3 text-left">Delivered</td>
-              <td className="border p-3 text-left">$120.50</td>
-              <td className="border p-3 text-left">
-                {new Date().getUTCFullYear()}
-              </td>
-            </tr>
-            <tr>
-              <td className="border p-3 text-left">1</td>
-              <td className="border p-3 text-left">John Doe</td>
-              <td className="border p-3 text-left">Delivered</td>
-              <td className="border p-3 text-left">$120.50</td>
-              <td className="border p-3 text-left">
-                {new Date().getUTCFullYear()}
-              </td>
-            </tr>
+            {orders
+              ?.sort(
+                (a, b) =>
+                  new Date(b.date).getTime() - new Date(a.date).getTime()
+              )
+              .slice(0, 4)
+              .map((order) => {
+                return (
+                  <tr>
+                    <td className="border p-3 text-left">
+                      {order.cart[0].name}
+                    </td>
+                    <td className="border p-3 text-left">
+                      {order.firstName} {order.lastName}
+                    </td>
+                    <td className="border p-3 text-left">{order.status}</td>
+                    <td className="border p-3 text-left">{order.total}</td>
+                    <td className="border p-3 text-left">{order.date}</td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

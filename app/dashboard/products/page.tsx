@@ -57,7 +57,7 @@ const page = () => {
   );
 
   return (
-    <section className="mx-4 lg:mx-28 mt-16 flex flex-col">
+    <section className="mx-4 lg:mx-28 mt-16 flex flex-col text-primary">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold my-4">Products</h1>
         <button

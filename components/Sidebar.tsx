@@ -43,7 +43,7 @@ const Sidebar = () => {
           ${
             isSideBarOpen
               ? "translate-x-0"
-              : "-translate-x-full lg:translate-x-0"
+              : "-translate-x-[110%] lg:translate-x-0"
           }
           
         `}
