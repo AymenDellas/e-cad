@@ -1,34 +1,40 @@
 "use client";
 import React from "react";
-import {
-  PieChart,
-  Pie,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { PieChart, Pie, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import ClientOnly from "./ClientOnly";
 
 const PieC = ({ data }: { data: { name: string; value: any }[] }) => {
-  return (
-    <div className="w-full my-12 h-[28rem] bg-white border border-black/10 shadow-xl  rounded-lg ">
-      <h1 className="font-bold text-2xl m-4">Revenue (Last 30 Days)</h1>
-      <ResponsiveContainer height="90%">
-        <PieChart margin={{ top: 20, left: 0, right: 60, bottom: 40 }}>
-          <Pie
-            data={data}
-            dataKey="value"
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={100}
-            label
-          />
+  const COLORS = ["#aba8ff", "#ffcefd", "#b7e3ca"];
 
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
+  return (
+    <div
+      className="w-full my-12 h-[28rem] bg-card-light dark:bg-card-dark border border-black/10 shadow-xl rounded-lg"
+      suppressHydrationWarning
+    >
+      <h1 className="text-2xl p-4">Revenue By category</h1>
+      <ClientOnly>
+        <ResponsiveContainer width="100%" height="90%">
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              fill="#8884d8"
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
+      </ClientOnly>
     </div>
   );
 };

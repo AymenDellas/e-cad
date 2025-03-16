@@ -1,33 +1,30 @@
 "use client";
-import React from "react";
-import { ShoppingCart, DollarSign } from "lucide-react";
-import { MoonLoader } from "react-spinners";
+import React, { ReactNode } from "react";
+
 type cardProp = {
   title: string;
   amount: number;
-  dolarSign: string;
-  isLoading: boolean;
+  sign: string;
+  isLoading?: boolean;
+  icon: ReactNode;
 };
-const Card = ({ amount, title, dolarSign, isLoading }: cardProp) => {
+const Card = ({ amount, title, sign, icon }: cardProp) => {
+  const newAmount = isNaN(amount) ? 0 : amount;
   return (
-    <article className="p-4 flex flex-col justify-between w-full   m-2 border border-black/20 shadow-xl rounded-lg space-y-4">
+    <article
+      className="p-4 flex flex-col justify-between w-full   m-2 border border-black/20 shadow-xl rounded-lg space-y-4 bg-card-light dark:bg-card-dark "
+      suppressHydrationWarning
+    >
       <div className="flex items-center justify-between ">
         <h1>{title}</h1>
-        <DollarSign />
+        {icon}
       </div>
       <div className="flex items-center text-3xl font-bold">
-        {dolarSign}
-        {isLoading ? (
-          <span>
-            <MoonLoader />
-          </span>
-        ) : (
-          <p>{amount}</p>
-        )}
+        {sign}
+
+        <p>{newAmount}</p>
       </div>
-      <div className="text-black/50">
-        <p>+20.1% from last month</p>
-      </div>
+      <div className="text-black/50"></div>
     </article>
   );
 };

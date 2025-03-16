@@ -10,7 +10,7 @@ export interface Product {
 }
 export interface Order {
   cart: Product[];
-  date: string;
+  created_at: string;
   email: string;
   firstName: string;
   lastName: string;

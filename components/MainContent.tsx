@@ -1,56 +1,44 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Card from "./Card";
+import { useGetOrders } from "@/store";
 import dynamic from "next/dynamic";
 const LineC = dynamic(() => import("./LineC"), { ssr: false });
-import RecentOrdersTable from "./RecentOrdersTable";
-import TopSellingProducts from "./TopSellingProducts";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
-import { Order, Product } from "@/lib/types";
-import { subDays, format, getMonth } from "date-fns";
-import { MoonLoader } from "react-spinners";
-import { de } from "date-fns/locale";
+
+const Card = dynamic(() => import("./Card"), { ssr: false });
+const RecentOrdersTable = dynamic(() => import("./RecentOrdersTable"), {
+  ssr: false,
+});
+const TopSellingProducts = dynamic(() => import("./TopSellingProducts"), {
+  ssr: false,
+});
+
+import { Order } from "@/lib/types";
+import { subDays, format } from "date-fns";
+import supabase from "@/supabase";
+import { DollarSign } from "lucide-react";
 const MainContent = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const getOrders = useGetOrders((state) => state.getOrders);
+  const orders = useGetOrders((state) => state.orders);
   const [chartData, setChartData] = useState<{ name: string; uv: number }[]>(
     []
   );
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
-    setIsLoading(true);
-    try {
-      const orderRef = collection(db, "orders");
-      const getOrders = async () => {
-        const data = await getDocs(orderRef);
-        const dataWithId = data.docs.map((doc) => ({
-          ...(doc.data() as Omit<Order, "id">),
-          id: doc.id,
-        }));
-        setOrders(dataWithId);
-      };
-      getOrders();
-      setIsLoading(false);
-    } catch (error) {
-      console.log("Error fetching the orders", error);
-    }
-  }, []);
-
+    getOrders();
+  }, [getOrders]);
   const totalSales = orders.reduce(
     (acc, order) => (order.status === "delivered" ? acc + order.total : acc),
     0
   );
   const totalOrders = orders.length;
   useEffect(() => {
-    setIsLoading(true);
     try {
       const last7Days: { [key: string]: number } = {};
-      for (let i = 29; i >= 0; i--) {
+      for (let i = 14; i >= 0; i--) {
         const date = format(subDays(new Date(), i), "MM/dd");
         last7Days[date] = 0;
       }
       orders.forEach((order) => {
-        const orderDate = format(new Date(order.date), "MM/dd");
+        const orderDate = format(new Date(order.created_at), "MM/dd");
         if (
           last7Days[orderDate] !== undefined &&
           order.status === "delivered"
@@ -65,32 +53,31 @@ const MainContent = () => {
         })
       );
       setChartData(formattedChartData);
-      setIsLoading(false);
     } catch (error) {
       console.log("Error", error);
     }
   }, [orders]);
 
   return (
-    <section className="mx-4 lg:mx-24 mt-16 font-poppins text-primary ">
-      <h1 className="text-2xl font-bold my-4">Dashboard </h1>
+    <section className="mx-4 lg:mx-24 mt-16 font-poppins ">
+      <h1 className="text-2xl font-bold my-4 ">Dashboard </h1>
 
       <div className="flex flex-col lg:flex-row items-center">
         <Card
           title="Total Sales"
-          dolarSign="$"
+          sign="$"
           amount={totalSales}
-          isLoading={isLoading}
+          icon={<DollarSign />}
         />
         <Card
           title="Total Orders"
-          dolarSign=""
+          sign=""
           amount={totalOrders}
-          isLoading={isLoading}
+          icon={<DollarSign />}
         />
       </div>
       <LineC chartData={chartData} />
-      <div className="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0">
+      <div className="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0 ">
         <RecentOrdersTable orders={orders} />
         <TopSellingProducts orders={orders} />
       </div>
