@@ -5,8 +5,9 @@ import Sidebar from "@/components/Sidebar";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "...",
-  description: "...",
+  title: "E-commerce admin dashboard",
+  description:
+    "Comprehensive admin interface for managing e-commerce operations and analytics.",
   other: {
     "react-hydration": "suppress-hydration-warning",
   },
@@ -43,9 +44,7 @@ export default function DashboardLayout({
         <div className="flex min-h-screen">
           <Sidebar />
           <main className="flex-1 overflow-x-hidden">
-            <div className="mx-4 lg:mx-8 xl:mx-16 py-8">
-              {children}
-            </div>
+            <div className="mx-4 lg:mx-8 xl:mx-16 py-8">{children}</div>
           </main>
         </div>
       </body>
